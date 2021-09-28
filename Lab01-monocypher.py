@@ -1,5 +1,6 @@
 def monocypher():
-    string = input("Encrypted String")
+    f = open("aliceInWonderland.txt", "r")
+    string = f.read().lower()
     letters = {}
     letterAmount = 0
     for x in range(26):
@@ -13,7 +14,7 @@ def monocypher():
                 break
     for letter in letters:
         letters.update({letter: letters[letter] / letterAmount})
-
+        
     for x, y in letters.items():  # print out the dictionary in correct format
         print(x, ": ", y)
     print(letterAmount)

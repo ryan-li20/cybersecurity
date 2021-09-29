@@ -1,11 +1,11 @@
 import math
 
-def main():
+def part2():
     base = basecypher("aliceInWonderland.txt")  # makes the baseline frequencies
     string = "the string given is supposed to be here!!!!!!asdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdff!!!!!" 
     sd = {}  # string - distance list
     for x in range(26):  # makes sd contain the values of all shifted messages : distance from base
-        sd[shift(string, x)] = distance(cypher(string), base)
+        sd[shift(string, x)] = distance(list(cypher(string).values()), list(base.values()))
     message = ""
     dist = 1
     for x, y in sd.items():  # loops through the frequency, "sorting it", and replacing the message and dist with the better ones
@@ -13,18 +13,22 @@ def main():
             dist = y
             message = x
             
-    
+    print(sd)
     print(message)
+    
+def part1(file):
+    base = basecypher(file)  # makes the baseline frequencies
     for x, y in base.items():  # print out the dictionary in correct format
         print(x, ": ", y)
     
+    
 def shift(string, amount):  # takes a string, shifts it, returns a string
     alphabet = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
-    newString = string
-    newString.replace("a", "!")
+    newString = ""
+    newString.replace('a', "!")
+    print(newString)
     for x in range(25):  # cycles thru alphabet and replaces message
-        print(newString, amount, alphabet[x+1], alphabet[x+1+amount])
-        newString.replace(alphabet[x+1], alphabet[x+1+amount])  # replace, starting from b, the letter shifted amount rightwards.
+        newString.add(alphabet[x+1], alphabet[x+1+amount])  # replace, starting from b, the letter shifted amount rightwards.
         #above is the broken code part
     newString.replace("!", alphabet[x+amount])
     return newString
@@ -44,7 +48,7 @@ def cypher(string):  # returns the list of freq given a string
                 break
     for letter in letters:
         letters.update({letter: letters[letter] / letterAmount})
-    return letters.values()
+    return letters
 
 def basecypher(file):  # returns the list of freq given a file, establish the baseline
     f = open(file, "r")

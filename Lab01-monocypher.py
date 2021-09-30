@@ -3,16 +3,10 @@ import math
 def part2(string):
     base = basecypher("aliceInWonderland.txt")  # makes the baseline frequencies
     sd = {}  # string - distance list
-    for x in range(26):  # makes sd contain the values of all shifted messages : distance from base
-        sd[shift(string, x)] = distance(list(cypher(string).values()), list(base.values()))
-    message = ""
-    dist = 1
-    for x, y in sd.items():  # loops through the frequency, "sorting it", and replacing the message and dist with the better ones
-        if(y < dist):
-            dist = y
-            message = x
-            
-    print(message)
+    for x in range(1,26):  # makes sd contain the values of all shifted messages : distance from base
+        sd[shift(string, x)] = distance(list(cypher(shift(string, x)).values()), list(base.values()))
+    sortedsd = sorted(sd.items(), key = lambda kv : kv[1])
+    print(sortedsd[0][0])
     
 def part1(file):
     base = basecypher(file)  # makes the baseline frequencies
@@ -22,9 +16,12 @@ def part1(file):
     
 def shift(string, amount):
     newString = ""
+    string = string.lower()
     for char in string:
-        print(chr((ord(char) - 97 - amount) % 26 + 97))
-        newString = newString + (chr((ord(char) - 97 - amount) % 26 + 97))
+        if(ord(char) >= ord("a") and ord(char) <= ord("z")):
+            newString = newString + (chr((ord(char) - 97 - amount) % 26 + 97))
+        else:
+            newString = newString + char
     return newString
     
             

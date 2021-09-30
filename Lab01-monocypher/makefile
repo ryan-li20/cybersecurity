@@ -1,5 +1,4 @@
-default:
-	echo "make frequency ARGS=inputFileName"
 frequency:
-	python Lab01-monocypher.py $(aliceInWonderland.txt)
-	
+	python3 Lab01-monocypher1.py $(ARGS)
+decode:
+	python3 Lab-1-monocypher2.py $(ARGS)

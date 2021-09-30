@@ -1,8 +1,7 @@
 import math
 
-def part2():
+def part2(string):
     base = basecypher("aliceInWonderland.txt")  # makes the baseline frequencies
-    string = "the string given is supposed to be here!!!!!!asdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdff!!!!!" 
     sd = {}  # string - distance list
     for x in range(26):  # makes sd contain the values of all shifted messages : distance from base
         sd[shift(string, x)] = distance(list(cypher(string).values()), list(base.values()))
@@ -13,7 +12,6 @@ def part2():
             dist = y
             message = x
             
-    print(sd)
     print(message)
     
 def part1(file):
@@ -22,16 +20,14 @@ def part1(file):
         print(x, ": ", y)
     
     
-def shift(string, amount):  # takes a string, shifts it, returns a string
-    alphabet = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+def shift(string, amount):
     newString = ""
-    newString.replace('a', "!")
-    print(newString)
-    for x in range(25):  # cycles thru alphabet and replaces message
-        newString.add(alphabet[x+1], alphabet[x+1+amount])  # replace, starting from b, the letter shifted amount rightwards.
-        #above is the broken code part
-    newString.replace("!", alphabet[x+amount])
+    for char in string:
+        print(chr((ord(char) - 97 - amount) % 26 + 97))
+        newString = newString + (chr((ord(char) - 97 - amount) % 26 + 97))
     return newString
+    
+            
 
 def cypher(string):  # returns the list of freq given a string
     based = string.lower()

@@ -1,4 +1,4 @@
 frequency:
-	python3 Lab01-monocypher1.py frequency $(ARGS)
+	python3 Lab01-monocypher.py frequency $(ARGS)
 decode:
-	python3 Lab01-monocypher2.py decode $(ARGS)
+	python3 Lab01-monocypher.py decode $(ARGS)

@@ -1,4 +1,6 @@
 import math
+import sys;
+
 
 def part2(string, englishSample):
     base = basecypher(englishSample)  # makes the baseline frequencies
@@ -69,3 +71,19 @@ def distance(list1, list2):  # given two number lists of equal length, add them 
     for number in finalList:
         finalNumber += number
     return math.sqrt(finalNumber)
+
+filename = ""
+if len(sys.argv) > 3:
+   filename = sys.argv[2]
+   sample = sys.argv[3]
+   text = open(filename).read()
+   part2(text, sample)
+#    print(type(filename))
+#    print(type(sample))
+#    print(type(text))
+#    print(type(textsample))
+elif len(sys.argv) > 2:
+    filename = sys.argv[2]
+    part1(filename)
+else:
+   print("error provide a filename")

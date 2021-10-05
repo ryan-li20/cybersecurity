@@ -3,6 +3,7 @@ import sys;
 
 
 
+
 def factorize(number):
     lis = []
     print(type(number))
@@ -26,17 +27,17 @@ def buckets(string):
             lis3.append(string[x])
         if x % 4 == 3:
             lis4.append(string[x])
-    print(stringify(lis1), stringify(lis2), stringify(lis3), stringify(lis4))
+    return[lis1, lis2, lis3, lis4]
     
 def unbucket(string1, string2, string3, string4):
     string = ""
-    for x in range(297):
+    for x in range(len(string2)): #  FIX THIS PART, EACH INDIVIDUAL WITH A IF STATEMENT BEFORE IT TO CHECK UNDONENESS
         string = string + string1[x] + string2[x] + string3[x] + string4[x]
     print(string)
 
 def stringify(lis):
     string = "".join(lis)
-    print(string)
+    return string
 
 def part2(string, englishSample):
     base = basecypher(englishSample)  # makes the baseline frequencies
@@ -44,7 +45,7 @@ def part2(string, englishSample):
     for x in range(1,26):  # makes sd contain the values of all shifted messages : distance from base
         sd[shift(string, x)] = distance(list(cypher(shift(string, x)).values()), list(base.values()))
     sortedsd = sorted(sd.items(), key = lambda kv : kv[1])
-    print(sortedsd[0][0])
+    return(sortedsd[0][0])
     
 def part1(file):
     base = basecypher(file)  # makes the baseline frequencies
@@ -107,3 +108,8 @@ def distance(list1, list2):  # given two number lists of equal length, add them 
     for number in finalList:
         finalNumber += number
     return math.sqrt(finalNumber)
+
+def decode(string):
+    unbucket(     part2(stringify(buckets(string)[0]), "aliceInWonderland.txt")    , part2(stringify(buckets(string)[1]), "aliceInWonderland.txt"),     part2(stringify(buckets(string)[2]), "aliceInWonderland.txt"),      part2(stringify(buckets(string)[3])  , "aliceInWonderland.txt")           )
+
+

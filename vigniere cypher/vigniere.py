@@ -13,31 +13,29 @@ def factorize(number):
             number /= x
     print(lis)
     
-def buckets(string):
-    lis1 = []
-    lis2 = []
-    lis3 = []
-    lis4 = []
+def buckets(string, key):
+    masterlist = []
+    for letter in key:
+        templist = []
+        masterlist.append(templist)
     for x in range(len(string)):
-        if x % 4 == 0:
-            lis1.append(string[x])
-        if x % 4 == 1:
-            lis2.append(string[x])
-        if x % 4 == 2:
-            lis3.append(string[x])
-        if x % 4 == 3:
-            lis4.append(string[x])
-    return[lis1, lis2, lis3, lis4]
+        masterlist[(x%len(key))].append(string[x])
+    return masterlist
     
-def unbucket(string1, string2, string3, string4):
+def unbucket(lis):
     string = ""
-    for x in range(len(string2)): #  FIX THIS PART, EACH INDIVIDUAL WITH A IF STATEMENT BEFORE IT TO CHECK UNDONENESS
-        string = string + string1[x] + string2[x] + string3[x] + string4[x]
+    for x in range(len(lis[0])+1):
+        for bucket in lis:
+            if x < len(bucket):
+                string = string + bucket[x]
+    return string
     print(string)
 
 def stringify(lis):
-    string = "".join(lis)
-    return string
+    masterlist = []
+    for x in lis:
+        masterlist.append("".join(x))
+    return masterlist
 
 def part2(string, englishSample):
     base = basecypher(englishSample)  # makes the baseline frequencies
@@ -109,7 +107,58 @@ def distance(list1, list2):  # given two number lists of equal length, add them 
         finalNumber += number
     return math.sqrt(finalNumber)
 
-def decode(string):
-    unbucket(     part2(stringify(buckets(string)[0]), "aliceInWonderland.txt")    , part2(stringify(buckets(string)[1]), "aliceInWonderland.txt"),     part2(stringify(buckets(string)[2]), "aliceInWonderland.txt"),      part2(stringify(buckets(string)[3])  , "aliceInWonderland.txt")           )
+def decode(string, key):
+    final = ""
+    string = string.upper()
+    key = key.upper()
+    counter = 0
+    for char in string:
+        position1 = ord(char) - ord("A")
+        position2 = ord(key[counter%len(key)]) - ord("A")
+        position3 = (position1 - position2) % 26
+        letter3 = chr(position3+ord("A"))
+        counter +=1
+        final = final + letter3
+    print(final)
+    
+def encode(string, key):
+    final = ""
+    string = string.upper()
+    key = key.upper()
+    counter = 0
+    for char in string:
+        position1 = ord(char) - ord("A")
+        position2 = ord(key[counter%len(key)]) - ord("A")
+        position3 = (position1 + position2) % 26
+        letter3 = chr(position3+ord("A"))
+        counter +=1
+        final = final + letter3
+    print(final)
 
 
+if sys.argv[1] == "decode":
+    filename = sys.argv[3]
+    keyfile = sys.argv[2]
+    text = open(filename).read()
+    key = open(keyfile).read()
+    
+    decode(text, key)
+elif sys.argv[1] == "encode":
+    filename = sys.argv[3]
+    keyfile = sys.argv[2]
+    text = open(filename).read()
+    key = open(keyfile).read()
+    encode(text, key)
+else:
+    print("error")
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

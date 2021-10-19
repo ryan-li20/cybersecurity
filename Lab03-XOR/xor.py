@@ -11,13 +11,13 @@ if(debug):
   print("key: "+key)
   print("inp: "+inp)
 
-# def human(text, key):
-#     if len(text) > len(key):
-#         
-#     textCount = 0
-#     for char in text:
-#         xor(char, )
-#         
+def human(inp, key):
+    while len(inp) > len(key):
+        key = key + key
+    count = 0
+    for char in inp:
+        xor(char, key[count])
+        
 def xor(l1,l2):
     num1 = ord(l1)
     num2 = ord(l2)

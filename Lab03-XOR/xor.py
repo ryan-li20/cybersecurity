@@ -11,10 +11,7 @@ if(debug):
   print("key: "+key)
   print("inp: "+inp)
 
-if(mode.equals("numOut")):
-    integerout(inp, key)
-if(mode.equals("human")):
-    human(inp, key)
+
 
 def human(inp, key):
     while len(inp) > len(key):
@@ -23,6 +20,7 @@ def human(inp, key):
     count = 0
     for char in inp:
         output = output + chr(xor(char, key[count]))
+    print(output)
     return output
         
 def xor(l1,l2): # given two characters, return the decimal value of them xored
@@ -36,5 +34,12 @@ def integerout(inp, key):
     output = ""
     count = 0
     for char in inp:
-        output = output + hex(xor(char, key[count]))
+        tmp = "" + hex(xor(char, key[count]))
+        output = output + tmp[2:] + " "
+    print(output)
     return output
+
+if(mode == "numOut"):
+    integerout(inp, key)
+if(mode == "human"):
+    human(inp, key)

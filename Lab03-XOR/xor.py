@@ -20,8 +20,6 @@ def human(inp, key):
     count = 0
     for char in inp:
         output = output + chr(xor(char, key[count]))
-    f = open("output.txt", "a")
-    f.write(output)
     return output
         
 def xor(l1,l2): # given two characters, return the decimal value of them xored
@@ -43,4 +41,5 @@ def integerout(inp, key):
 if(mode == "numOut"):
     integerout(inp, key)
 if(mode == "human"):
-    human(inp, key)
+    outfile = open("output", "wb")
+    outfile.write(human(inp, key))
